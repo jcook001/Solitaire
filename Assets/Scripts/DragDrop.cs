@@ -104,18 +104,18 @@ public class DragDrop : MonoBehaviour, IPointerClickHandler
                 if (potentialGoalCard.GetComponent<CardInfo>().value == thisCard.value - 1
                   && potentialGoalCard.GetComponent<CardInfo>().suit == thisCard.suit)
                 {
-                    overlappedObject = potentialGoalCard;
-                    yield return StartCoroutine(solitaire.MoveCardToPointDoubleClick(transform, overlappedObject, 0, 0, solitaire.cardMoveSpeed));
+                    optionHit = "DoubleClick1";
+                    Debug.Log(thisCard.tag + " " + thisCard.name + " was dropped on: " + potentialGoalCard.tag + " " + potentialGoalCard.name +
+                            "\n Held card came from: " + originalParent.tag + " " + originalParent.name + " option hit was: " + optionHit);
+
+                    potentialGoalCard.GetComponent<BoxCollider2D>().enabled = false;
+                    yield return StartCoroutine(solitaire.MoveCardToPointDoubleClick(transform, potentialGoalCard, 0, 0, solitaire.cardMoveSpeed));
 
                     if (thisCard.CompareTag("Face Up Discard Pile"))
                     {
                         deckButton.PlayCardFromDiscardPile(originalParent);
                         AutoCompleteCheck(); //Check for autocomplete here because playing from the play area will not make it possible
                     }
-
-                    GameObject tempOverlappedObject = overlappedObject; //save the game object so when it gets nulled by enable we still have it
-                    overlappedObject.GetComponent<BoxCollider2D>().enabled = false; //this sets the overlapped to null :(
-                    overlappedObject = tempOverlappedObject; //TODO find a way to not need to work around this
 
                     if (originalParent.transform.childCount < 1)
                     {
@@ -128,10 +128,6 @@ public class DragDrop : MonoBehaviour, IPointerClickHandler
                     solitaire.previousParent = originalParent;
                     solitaire.cardMoved = this.gameObject;
                     Solitaire.SetCanUndo(true, "CardMove");
-
-                    optionHit = "DoubleClick1";
-                    Debug.Log(thisCard.tag + " " + thisCard.name + " was dropped on: " + overlappedObject.tag + " " + overlappedObject.name +
-                            "\n Held card came from: " + originalParent.tag + " " + originalParent.name + " option hit was: " + optionHit);
 
                     if (thisCard.value == 13) // maybe we've won the game
                     {
@@ -149,8 +145,12 @@ public class DragDrop : MonoBehaviour, IPointerClickHandler
                 // Check if the card is an Ace (1)
                 if (thisCard.value == 1)
                 {
-                    overlappedObject = potentialGoalCard;
-                    yield return StartCoroutine(solitaire.MoveCardToPointDoubleClick(transform, overlappedObject, 0, 0, solitaire.cardMoveSpeed));
+                    optionHit = "DoubleClick2";
+                    Debug.Log(thisCard.tag + " " + thisCard.name + " was dropped on: " + potentialGoalCard.tag + " " + potentialGoalCard.name +
+                                "\n Held card came from: " + originalParent.tag + " " + originalParent.name + " option hit was: " + optionHit);
+
+                    potentialGoalCard.GetComponent<BoxCollider2D>().enabled = false;
+                    yield return StartCoroutine(solitaire.MoveCardToPointDoubleClick(transform, potentialGoalCard, 0, 0, solitaire.cardMoveSpeed));
 
                     if (thisCard.CompareTag("Face Up Discard Pile"))
                     {
@@ -165,18 +165,11 @@ public class DragDrop : MonoBehaviour, IPointerClickHandler
 
                     tag = "Face Up Goal Area";
 
-                    GameObject tempOverlappedObject = overlappedObject; //save the game object so when it gets nulled by enable we still have it
-                    overlappedObject.GetComponent<BoxCollider2D>().enabled = false; //this sets the overlapped to null :(
-                    overlappedObject = tempOverlappedObject; //TODO find a way to not need to work around this
-
                     //Setup Undo
                     solitaire.previousParent = originalParent;
                     solitaire.cardMoved = this.gameObject;
                     Solitaire.SetCanUndo(true, "CardMove");
 
-                    optionHit = "DoubleClick2";
-                    Debug.Log(thisCard.tag + " " + thisCard.name + " was dropped on: " + overlappedObject.tag + " " + overlappedObject.name +
-                                "\n Held card came from: " + originalParent.tag + " " + originalParent.name + " option hit was: " + optionHit);
                     yield break;
                 }
             }

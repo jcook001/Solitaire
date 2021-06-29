@@ -284,8 +284,6 @@ public class Solitaire : MonoBehaviour
         float t = 0;
         Vector3 originalPosition = objectToMove.position;
         objectToMove.transform.SetParent(canvas.transform, true); //make the card appear on top while moving
-        //GameObject tempCard = new GameObject();
-        //tempCard.transform.SetParent(endPosition.transform);
         objectToMove.gameObject.GetComponent<DragDrop>().preventDragging = true;
         while (t < 1)
         {
@@ -296,7 +294,6 @@ public class Solitaire : MonoBehaviour
             yield return null;
         }
 
-        //Destroy(tempCard);
         endPosition.transform.DetachChildren();
         objectToMove.transform.SetParent(endPosition.transform, true);
         objectToMove.gameObject.GetComponent<DragDrop>().preventDragging = false;
