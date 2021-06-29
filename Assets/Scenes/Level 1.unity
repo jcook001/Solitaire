@@ -413,6 +413,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   HasGameStarted: 0
+  isGameWon: 0
   deck: []
   cardFaces:
   - {fileID: 21300000, guid: a9dddb9f9ab3107479397eff104f9c65, type: 3}
