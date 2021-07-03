@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
 public class MainMenu : MonoBehaviour
@@ -46,6 +47,11 @@ public class MainMenu : MonoBehaviour
     public void DarkModeOff()
     {
         optionsManager.GetComponent<Options>().DarkModeOff();
+    }
+
+    public void CardBackToggle()
+    {
+        optionsManager.GetComponent<Options>().CardBackSelect();
     }
 
     public void PlayLevel1()

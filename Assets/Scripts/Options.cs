@@ -32,6 +32,11 @@ public class Options : MonoBehaviour
 
     public void CardBackSelect()
     {
+        if (!cardBackToggleGroup)
+        {
+            cardBackToggleGroup = FindObjectOfType<ToggleGroup>();
+            if (!cardBackToggleGroup) { return; }
+        }
         activeToggle = cardBackToggleGroup.GetFirstActiveToggle();
         cardBackChoice = activeToggle.transform.parent.GetComponent<Image>().sprite;
     }
