@@ -374,23 +374,26 @@ public class Solitaire : MonoBehaviour
 
     private IEnumerator GameWinAnimation()
     {
-        mainCamera.clearFlags = CameraClearFlags.Nothing;
+        mainCamera.clearFlags = CameraClearFlags.Nothing; //Get that sweet sweet cascading effect
         
         List<GameObject> cardsInPlay = new List<GameObject>();
 
+        //Add cards into a list in the order we want them to drop eg. k, k, k, k, q, q, q...
         for (int i = 13; i > 0; i--)
         {
             foreach (GameObject area in goalArea)
             {
+                area.GetComponent<Image>().enabled = false;
                 if (area.transform.childCount > 0)
                 {
+                    //get the next child i times for each goal area
                     GameObject nextchild = area;
                     for (int j = i; j > 0; j--)
                     {
                         nextchild = nextchild.transform.GetChild(0).gameObject;
                     }
                     cardsInPlay.Add(nextchild);
-                    //yield return new WaitForSeconds(0.5f);
+                    nextchild.GetComponent<Image>().enabled = false;
                 }
             }
         }
@@ -415,6 +418,7 @@ public class Solitaire : MonoBehaviour
 
         foreach (GameObject card in cardsInPlay)
         {
+            card.GetComponent<Image>().enabled = true;
             card.GetComponent<BoxCollider2D>().enabled = true;
             card.GetComponent<Rigidbody2D>().constraints = UnityEngine.RigidbodyConstraints2D.FreezeRotation;
             card.GetComponent<Rigidbody2D>().gravityScale = 300.0f;
