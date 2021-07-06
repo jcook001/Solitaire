@@ -53,6 +53,8 @@ public class Solitaire : MonoBehaviour
     public GameObject autoCompleteButton;
     public float autoCompleteCardMoveSpeed = 0.25f;
     public float cardMoveSpeed = 0.25f;
+    public int winAnimationCardForceMax = 16000;
+    public int winAnimationcardForceMin = 12000;
 
     public static bool canUndo = false;
     public static string lastAction;
@@ -429,7 +431,7 @@ public class Solitaire : MonoBehaviour
             newMaterial.bounciness = Random.Range(0.8f, 0.91f);
             card.GetComponent<BoxCollider2D>().sharedMaterial = newMaterial;
             card.transform.SetParent(canvas.transform, true);
-            int cardForce = Random.Range(12000, 16000);
+            int cardForce = Random.Range(winAnimationcardForceMin, winAnimationCardForceMax);
             cardForce = cardForce * Screen.width/1920;
             if (Random.value > 0.5)
             {
@@ -440,14 +442,25 @@ public class Solitaire : MonoBehaviour
             yield return StartCoroutine(DestroyOffscreenCard(card));
         }
 
+        //If they've waited to the end of the animation...
         //Destroy dialogue manager (or just close the dialogue)
+        dialogueManager.ClosePrompt(true);
 
         //Restore camera settings
+        mainCamera.clearFlags = CameraClearFlags.Skybox;
 
         //play end scene animation
-        transition.SetTrigger("Start"); //make fade out animation longer
+        transition.SetTrigger("Start"); //TODO make fade out animation longer
 
-        yield return new WaitForSeconds(5.0f); //TODO Wait for click instead and then return to main menu
+        while (!Input.anyKeyDown)
+        {
+            //wait for user to click
+            yield return null; 
+            
+            //TODO OR wait for 10 seconds and show "click to continue..."
+        }
+
+        SceneManager.LoadScene("Menu");
     }
 
     private IEnumerator DestroyOffscreenCard(GameObject card)

@@ -27,9 +27,13 @@ public class DebugGetCard : MonoBehaviour
     {
         //What should we do?
         string name = inputField.textComponent.text.ToUpper();
-        if (name == "END") { DebugEndGame(); return; }
-        if (name == "END1") { DebugEndGame(false); return; }
-        if (name == "END2") { DebugEndGame(true); return; }
+        if (name == "END") { DebugEndGame(); return; } //Deal cards in order with last card face down
+        if (name == "END1") { DebugEndGame(false); return; } //Deal cards in order with last cards face up
+        if (name == "END2") { DebugEndGame(true); return; } //Deal cards in order and then autocomplete
+        if (name == "END3") { DebugEndGame(true); //Deal cards in order super quick and autocomplete super quick
+                              solitaire.autoCompleteCardMoveSpeed = 0.01f;
+                              solitaire.winAnimationcardForceMin = 500000;
+                              solitaire.winAnimationCardForceMax = 500000; return; }
 
         //Check input is valid
         if (name == "" || name.Length == 1) { return; }

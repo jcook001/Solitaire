@@ -174,12 +174,21 @@ public class DialogueManager : MonoBehaviour
         return null;
     }
 
-    public void ClosePrompt()
+    /// <summary>
+    /// Closes the open dialogue prompt if there is one and it can be closed
+    /// set bool to true to override the prompt not being closable
+    /// </summary>
+    /// <param name="shouldOverrideCanBeClosed"></param>
+    /// <returns></returns>
+    public void ClosePrompt(bool shouldOverrideCanBeClosed)
     {
-        if (prompt.gameObject.activeSelf && canPromptBeClosed)
+        if (prompt.gameObject.activeSelf)
         {
-            Destroy(prompt);
-            dialogueOverlay.gameObject.SetActive(false);
+            if (canPromptBeClosed || shouldOverrideCanBeClosed)
+            {
+                Destroy(prompt);
+                dialogueOverlay.gameObject.SetActive(false);
+            }
         }
     }
 }
