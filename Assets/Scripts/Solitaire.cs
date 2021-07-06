@@ -48,6 +48,8 @@ public class Solitaire : MonoBehaviour
 
     public DialogueManager dialogueManager;
 
+    public Animator transition;
+
     public GameObject autoCompleteButton;
     public float autoCompleteCardMoveSpeed = 0.25f;
     public float cardMoveSpeed = 0.25f;
@@ -437,6 +439,15 @@ public class Solitaire : MonoBehaviour
             card.layer = 11;
             yield return StartCoroutine(DestroyOffscreenCard(card));
         }
+
+        //Destroy dialogue manager (or just close the dialogue)
+
+        //Restore camera settings
+
+        //play end scene animation
+        transition.SetTrigger("Start"); //make fade out animation longer
+
+        yield return new WaitForSeconds(5.0f); //TODO Wait for click instead and then return to main menu
     }
 
     private IEnumerator DestroyOffscreenCard(GameObject card)
