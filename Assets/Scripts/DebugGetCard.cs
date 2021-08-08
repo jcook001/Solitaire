@@ -32,7 +32,7 @@ public class DebugGetCard : MonoBehaviour
         if (name == "END2") { DebugEndGame(true); return; } //Deal cards in order and then autocomplete
         if (name == "END3") { DebugEndGame(true); //Deal cards in order super quick and autocomplete super quick
                               solitaire.autoCompleteCardMoveSpeed = 0.01f;
-                              solitaire.winAnimationcardForceMin = 500000;
+                              solitaire.winAnimationCardForceMin = 500000;
                               solitaire.winAnimationCardForceMax = 500000; return; }
 
         //Check input is valid

@@ -7,6 +7,9 @@ using UnityEngine.SceneManagement;
 public class MainMenu : MonoBehaviour
 {
     public GameObject optionsManager;
+    public Animator transition;
+    public Animation menuClose;
+
     private void Start()
     {
         if (FindObjectOfType<Options>())
@@ -54,20 +57,35 @@ public class MainMenu : MonoBehaviour
         optionsManager.GetComponent<Options>().CardBackSelect();
     }
 
+    private IEnumerator SceneTransition(int sceneIndex)
+    {
+        float transitionStartTime = Time.time;
+        //start the transition
+        transition.SetTrigger("Menu Close");
+        //Find the length of the anim and wait that long
+        float transitionLength = transition.GetCurrentAnimatorClipInfo(0).Length;
+        
+        while (Time.time < transitionStartTime + transitionLength)
+        {
+            yield return null;
+        }
+        SceneManager.LoadScene(sceneIndex);
+    }
+
     public void PlayLevel1()
     {
-        SceneManager.LoadScene("Level 1");
+        StartCoroutine(SceneTransition(1));
         Options.canPlaceAnyCardInEmptySpace = true;
     }
 
     public void PlayLevel2()
     {
-        SceneManager.LoadScene("Level 2");
+        StartCoroutine(SceneTransition(2));
     }
 
     public void PlayLevel3()
     {
-        SceneManager.LoadScene("Level 3");
+        StartCoroutine(SceneTransition(3));
         Options.canPlaceAnyCardInEmptySpace = true;
     }
 }

@@ -54,7 +54,7 @@ public class Solitaire : MonoBehaviour
     public float autoCompleteCardMoveSpeed = 0.25f;
     public float cardMoveSpeed = 0.25f;
     public int winAnimationCardForceMax = 16000;
-    public int winAnimationcardForceMin = 12000;
+    public int winAnimationCardForceMin = 12000;
 
     public static bool canUndo = false;
     public static string lastAction;
@@ -431,7 +431,7 @@ public class Solitaire : MonoBehaviour
             newMaterial.bounciness = Random.Range(0.8f, 0.91f);
             card.GetComponent<BoxCollider2D>().sharedMaterial = newMaterial;
             card.transform.SetParent(canvas.transform, true);
-            int cardForce = Random.Range(winAnimationcardForceMin, winAnimationCardForceMax);
+            int cardForce = Random.Range(winAnimationCardForceMin, winAnimationCardForceMax);
             cardForce = cardForce * Screen.width/1920;
             if (Random.value > 0.5)
             {
@@ -446,11 +446,13 @@ public class Solitaire : MonoBehaviour
         //Destroy dialogue manager (or just close the dialogue)
         dialogueManager.ClosePrompt(true);
 
+        //play end scene animation
+        transition.SetTrigger("End"); //TODO make fade out animation longer
+
+        yield return new WaitForSeconds(1.0f);
+
         //Restore camera settings
         mainCamera.clearFlags = CameraClearFlags.Skybox;
-
-        //play end scene animation
-        transition.SetTrigger("Start"); //TODO make fade out animation longer
 
         while (!Input.anyKeyDown)
         {
