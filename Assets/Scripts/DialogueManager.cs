@@ -149,7 +149,14 @@ public class DialogueManager : MonoBehaviour
 
     public UnityEngine.Events.UnityAction QuitGame()
     {
+    #if UNITY_EDITOR
+        UnityEditor.EditorApplication.isPlaying = false;
+
+    #else
         Application.Quit();
+
+    #endif
+
         return null;
     }
 
