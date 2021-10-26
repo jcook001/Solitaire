@@ -28,7 +28,6 @@ public class AudioManager : MonoBehaviour
         currentTrack = StartTrackIndex;
         audioSource.volume = volume;
         mainMenu.UpdateTrackName(backgroundMusic[currentTrack].name);
-        Debug.Log(currentTrack);
     }
 
     // Update is called once per frame

@@ -7,6 +7,7 @@ using TMPro;
 
 public class MainMenu : MonoBehaviour
 {
+    public GameObject TitleText;
     public GameObject playButton;
     private Vector2 playButtonPosition;
     public CanvasGroup playButtonCanvas;
@@ -162,6 +163,11 @@ public class MainMenu : MonoBehaviour
     {
         mainMenuIsActive = false;
 
+        //fade out the title text because phone screens don't have enough height to accomodate everything
+    #if PLATFORM_ANDROID
+        TitleText.GetComponent<CanvasGroup>().LeanAlpha(0, 1.0f);
+    #endif
+
         //Move the play, options and quit button off the screen and fade them out
         playButton.transform.LeanMoveX(playButton.transform.position.x + 500, menuTransitionTime); //TODO make the movement length relative to the screen size
         playButtonCanvas.LeanAlpha(0, 0.5f);
@@ -182,9 +188,21 @@ public class MainMenu : MonoBehaviour
         yield return null;
 
         //Bring new buttons onto the screen
-        cardBack.transform.LeanMoveLocalY(cardBack.transform.position.y + Screen.height/4, menuTransitionTime).setEaseInOutBack();
+#if PLATFORM_ANDROID //TODO set this up in a way that can handle various screen sizes instead of coding multiple paths
+        cardBack.transform.LeanMoveY(cardBack.transform.position.y + Screen.height / 1.5f, menuTransitionTime).setEaseInOutBack();
         yield return new WaitForSeconds(0.25f);
-        backButton.transform.LeanMoveLocalY(backButton.transform.position.y + Screen.height/4, menuTransitionTime).setEaseInOutBack();
+        backButton.transform.LeanMoveY(backButton.transform.position.y + Screen.height / 1.5f, menuTransitionTime).setEaseInOutBack();
+        yield return new WaitForSeconds(0.25f);
+        musicInformation.transform.LeanMoveY(musicInformation.transform.position.y + Screen.height / 1.5f, menuTransitionTime).setEaseInOutBack();
+        yield return new WaitForSeconds(0.25f);
+        cardDrawButton.transform.LeanMoveY(cardDrawButton.transform.position.y + Screen.height / 1.5f, menuTransitionTime).setEaseInOutBack();
+        yield return new WaitForSeconds(0.25f);
+        darkModeButton.transform.LeanMoveY(darkModeButton.transform.position.y + Screen.height / 1.5f, menuTransitionTime).setEaseInOutBack();
+
+#else 
+        cardBack.transform.LeanMoveLocalY(cardBack.transform.position.y + Screen.height / 4, menuTransitionTime).setEaseInOutBack();
+        yield return new WaitForSeconds(0.25f);
+        backButton.transform.LeanMoveLocalY(backButton.transform.position.y + Screen.height / 4, menuTransitionTime).setEaseInOutBack();
         yield return new WaitForSeconds(0.25f);
         musicInformation.transform.LeanMoveLocalY(musicInformation.transform.position.y + Screen.height / 4, menuTransitionTime).setEaseInOutBack();
         yield return new WaitForSeconds(0.25f);
@@ -192,6 +210,7 @@ public class MainMenu : MonoBehaviour
         yield return new WaitForSeconds(0.25f);
         darkModeButton.transform.LeanMoveLocalY(darkModeButton.transform.position.y + Screen.height / 4, menuTransitionTime).setEaseInOutBack();
 
+#endif
     }
 
     private IEnumerator SlideAndFadeButtonsIn()
@@ -207,15 +226,20 @@ public class MainMenu : MonoBehaviour
         yield return new WaitForSeconds(0.25f);
         darkModeButton.transform.LeanMoveY(darkModeButtonPosition.y, menuTransitionTime).setEaseInOutBack();
 
+        //Fade the title text back in
+#if PLATFORM_ANDROID
+        TitleText.GetComponent<CanvasGroup>().LeanAlpha(1, 1.0f);
+#endif
+
         //Bring menu buttons back
         mainMenuIsActive = true;
-        playButton.transform.LeanMoveX(playButton.transform.position.x -500, menuTransitionTime);
+        playButton.transform.LeanMoveX(playButtonPosition.x, menuTransitionTime);
         playButtonCanvas.LeanAlpha(1, 0.5f);
         yield return new WaitForSeconds(0.25f);
-        optionsButton.transform.LeanMoveX(optionsButton.transform.position.x - 500, menuTransitionTime);
+        optionsButton.transform.LeanMoveX(optionsButtonPosition.x, menuTransitionTime);
         optionsButtonCanvas.LeanAlpha(1, 0.5f);
         yield return new WaitForSeconds(0.25f);
-        quitButton.transform.LeanMoveX(quitButton.transform.position.x - 500, menuTransitionTime);
+        quitButton.transform.LeanMoveX(quitButtonPosition.x, menuTransitionTime);
         quitButtonCanvas.LeanAlpha(1, 0.5f);
         yield return null;
     }
