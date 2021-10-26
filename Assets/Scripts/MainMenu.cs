@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using TMPro;
 
 public class MainMenu : MonoBehaviour
 {
@@ -27,6 +28,7 @@ public class MainMenu : MonoBehaviour
     private Vector2 darkModeButtonPosition;
     public GameObject musicInformation;
     private Vector2 musicInformationPosition;
+    public TextMeshProUGUI musicInformationText;
 
     private bool mainMenuIsActive = true;
     private float menuTransitionTime = 0.5f;
@@ -67,6 +69,9 @@ public class MainMenu : MonoBehaviour
         cardDrawButtonPosition = cardDrawButton.transform.position;
         darkModeButtonPosition = darkModeButton.transform.position;
         musicInformationPosition = musicInformation.transform.position;
+
+        //Find the music name text
+        musicInformationText = musicInformation.transform.GetChild(0).GetComponent<TextMeshProUGUI>();
     }
 
     public void QuitGame()
@@ -228,5 +233,10 @@ public class MainMenu : MonoBehaviour
     public void AudioPlayPauseTrack()
     {
         audioManager.PlayPause();
+    }
+
+    public void UpdateTrackName(string trackName)
+    {
+        musicInformationText.text = trackName;
     }
 }

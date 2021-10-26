@@ -1468,7 +1468,7 @@ MonoBehaviour:
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 1
-  m_HorizontalAlignment: 2
+  m_HorizontalAlignment: 1
   m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 0
@@ -5290,8 +5290,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: -603.1447, y: 288.61}
-  m_SizeDelta: {x: 1206.2897, y: 577.22}
+  m_AnchoredPosition: {x: -603.1447, y: 328.22}
+  m_SizeDelta: {x: 1206.2897, y: 656.44}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &805972177
 GameObject:
@@ -5829,8 +5829,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -512.55, y: -466.41}
-  m_SizeDelta: {x: -1025.0972, y: -491.6375}
+  m_AnchoredPosition: {x: -512.55, y: -516.4907}
+  m_SizeDelta: {x: -1025.0972, y: -591.7989}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &962605244
 MonoBehaviour:
@@ -6285,8 +6285,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -463, y: -715}
-  m_SizeDelta: {x: -926.8329, y: -491.6375}
+  m_AnchoredPosition: {x: -462.99994, y: -676.17426}
+  m_SizeDelta: {x: -926.8329, y: -569.289}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1138606245
 MonoBehaviour:
@@ -6421,7 +6421,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -446, y: -291}
+  m_AnchoredPosition: {x: -446, y: -211.78}
   m_SizeDelta: {x: 758.2349, y: 423.55}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1152363891
@@ -6706,7 +6706,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 181.1925, y: 0}
-  m_SizeDelta: {x: 426.1039, y: 0.4175}
+  m_SizeDelta: {x: 426.1039, y: -0.000045776}
   m_Pivot: {x: 0, y: 0}
 --- !u!114 &1225952207
 MonoBehaviour:
@@ -8194,7 +8194,7 @@ MonoBehaviour:
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 1
-  m_HorizontalAlignment: 2
+  m_HorizontalAlignment: 1
   m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 0
@@ -8688,6 +8688,7 @@ MonoBehaviour:
   cardDrawButton: {fileID: 1138606243}
   darkModeButton: {fileID: 2109792865}
   musicInformation: {fileID: 962605242}
+  musicInformationText: {fileID: 0}
   optionsManager: {fileID: 5246988304836783048, guid: b541d45d522d53d4783370e139d39d68,
     type: 3}
   audioManagerGameObject: {fileID: 5837029977407335921, guid: 27c22655cba139b479e4c3ae3984e823,
@@ -10337,7 +10338,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: 55.061584, y: 37.312805}
+  m_AnchoredPosition: {x: 54.852005, y: 38.401}
   m_SizeDelta: {x: 109.7035, y: 74.733}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!225 &2081079183
@@ -10560,8 +10561,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -458.46722, y: -800.9459}
-  m_SizeDelta: {x: -917.4783, y: -502.4862}
+  m_AnchoredPosition: {x: -458.32, y: -757.63}
+  m_SizeDelta: {x: -917.4783, y: -580.6727}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2109792867
 MonoBehaviour:

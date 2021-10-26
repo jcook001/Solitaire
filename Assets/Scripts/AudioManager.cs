@@ -1,12 +1,16 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class AudioManager : MonoBehaviour
 {
+    private GameObject mainMenuFunctions;
+    private MainMenu mainMenu;
     private AudioSource audioSource;
 
     public AudioClip[] backgroundMusic;
+    private TextMeshPro musicInformationText;
     private int StartTrackIndex = 5; //track 5 Happy Relaxing Piano Loop
     private int currentTrack;
     private float trackDelay = 0.1f; //time in seconds before playing a new track
@@ -16,11 +20,15 @@ public class AudioManager : MonoBehaviour
     void Start()
     {
         DontDestroyOnLoad(this);
+        mainMenuFunctions = GameObject.Find("Main Menu Functions");
+        mainMenu = mainMenuFunctions.GetComponent<MainMenu>();
         audioSource = GetComponent<AudioSource>();
         audioSource.clip = backgroundMusic[StartTrackIndex];
         audioSource.loop = true;
         currentTrack = StartTrackIndex;
         audioSource.volume = volume;
+        mainMenu.UpdateTrackName(backgroundMusic[currentTrack].name);
+        Debug.Log(currentTrack);
     }
 
     // Update is called once per frame
@@ -43,13 +51,13 @@ public class AudioManager : MonoBehaviour
     {
         //check that incrementing the track index doesn't exceed the list values
         int nextTrack = currentTrack + trackChange;
-        if(nextTrack > backgroundMusic.Length)
+        if (nextTrack >= backgroundMusic.Length)
         {
             currentTrack = 0;
         }
         else if(nextTrack < 0)
         {
-            currentTrack = backgroundMusic.Length;
+            currentTrack = backgroundMusic.Length - 1; //subtract 1 because arrays start counting at 0
         }
         else
         {
@@ -58,7 +66,7 @@ public class AudioManager : MonoBehaviour
 
         audioSource.clip = backgroundMusic[currentTrack];
         audioSource.PlayDelayed(trackDelay);
-
+        mainMenu.UpdateTrackName(backgroundMusic[currentTrack].name);
         //Does the volume reset on track change?
     }
 
