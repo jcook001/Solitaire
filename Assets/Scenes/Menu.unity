@@ -1468,7 +1468,7 @@ MonoBehaviour:
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 1
-  m_HorizontalAlignment: 1
+  m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 0
@@ -6633,7 +6633,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1673452560}
         m_TargetAssemblyTypeName: MainMenu, Assembly-CSharp
-        m_MethodName: MenuTransition
+        m_MethodName: ToggleDrawAmount
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -8207,7 +8207,7 @@ MonoBehaviour:
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 1
-  m_HorizontalAlignment: 1
+  m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 0
@@ -8700,9 +8700,10 @@ MonoBehaviour:
   cardBack: {fileID: 1258051422}
   cardBackCanvas: {fileID: 1258051423}
   cardDrawButton: {fileID: 1138606243}
+  cardDrawAmountText: {fileID: 231543498}
   darkModeButton: {fileID: 2109792865}
   musicInformation: {fileID: 962605242}
-  musicInformationText: {fileID: 0}
+  musicInformationText: {fileID: 1225952207}
   optionsManager: {fileID: 5246988304836783048, guid: b541d45d522d53d4783370e139d39d68,
     type: 3}
   audioManagerGameObject: {fileID: 5837029977407335921, guid: 27c22655cba139b479e4c3ae3984e823,

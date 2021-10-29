@@ -25,6 +25,7 @@ public class MainMenu : MonoBehaviour
     public CanvasGroup cardBackCanvas;
     public GameObject cardDrawButton;
     private Vector2 cardDrawButtonPosition;
+    public GameObject cardDrawAmountText;
     public GameObject darkModeButton;
     private Vector2 darkModeButtonPosition;
     public GameObject musicInformation;
@@ -262,5 +263,19 @@ public class MainMenu : MonoBehaviour
     public void UpdateTrackName(string trackName)
     {
         musicInformationText.text = trackName;
+    }
+
+    public void ToggleDrawAmount()
+    {
+        if(Options.drawAmount == 3)
+        {
+            optionsManager.GetComponent<Options>().DrawOne();
+            cardDrawAmountText.GetComponent<TextMeshProUGUI>().text = "1";
+        }
+        else
+        {
+            optionsManager.GetComponent<Options>().DrawThree();
+            cardDrawAmountText.GetComponent<TextMeshProUGUI>().text = "3";
+        }
     }
 }
