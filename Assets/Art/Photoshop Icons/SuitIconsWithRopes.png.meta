@@ -48,6 +48,7 @@ TextureImporter:
   streamingMipmaps: 0
   streamingMipmapsPriority: 0
   vTOnly: 0
+  ignoreMasterTextureLimit: 0
   grayScaleToAlpha: 0
   generateCubemap: 6
   cubemapConvolution: 0
@@ -5223,6 +5224,15 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
+    nameFileIdTable:
+      SuitIconsWithRopes_4: 5405658120760604856
+      SuitIconsWithRopes_3: -8150312736536223043
+      SuitIconsWithRopes_5: -6742819157151182412
+      SuitIconsWithRopes_2: -6418084377083270134
+      SuitIconsWithRopes_7: -7387884250505713114
+      SuitIconsWithRopes_1: -2220510364483021964
+      SuitIconsWithRopes_0: 3409583402277758707
+      SuitIconsWithRopes_6: -9083930231105319549
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0
