@@ -28,6 +28,7 @@ public class MainMenu : MonoBehaviour
     public GameObject cardDrawAmountText;
     public GameObject darkModeButton;
     private Vector2 darkModeButtonPosition;
+    public TextMeshProUGUI darkModeOptionText;
     public GameObject musicInformation;
     private Vector2 musicInformationPosition;
     public TextMeshProUGUI musicInformationText;
@@ -276,6 +277,20 @@ public class MainMenu : MonoBehaviour
         {
             optionsManager.GetComponent<Options>().DrawThree();
             cardDrawAmountText.GetComponent<TextMeshProUGUI>().text = "3";
+        }
+    }
+
+    public void ToggleDarkMode()
+    {
+        if (optionsManager.GetComponent<Options>().darkMode)
+        {
+            optionsManager.GetComponent<Options>().darkMode = false;
+            darkModeOptionText.text = "Off";
+        }
+        else
+        {
+            optionsManager.GetComponent<Options>().darkMode = true;
+            darkModeOptionText.text = "On";
         }
     }
 }
