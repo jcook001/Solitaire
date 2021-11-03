@@ -23,6 +23,11 @@ public class MainMenu : MonoBehaviour
     public GameObject cardBack;
     private Vector2 cardBackPosition;
     public CanvasGroup cardBackCanvas;
+    public Sprite[] cardBackChoices;
+    public GameObject cardBackRightButton;
+    private Vector2 cardBackRightButtonPosition;
+    public GameObject cardBackLeftButton;
+    private Vector2 cardBackLeftButtonPosition;
     public GameObject cardDrawButton;
     private Vector2 cardDrawButtonPosition;
     public GameObject cardDrawAmountText;
@@ -69,6 +74,8 @@ public class MainMenu : MonoBehaviour
         quitButtonPosition = quitButton.transform.position;
         backButtonPosition = backButton.transform.position;
         cardBackPosition = cardBack.transform.position;
+        cardBackLeftButtonPosition = cardBackLeftButton.transform.position;
+        cardBackRightButtonPosition = cardBackRightButton.transform.position;
         cardDrawButtonPosition = cardDrawButton.transform.position;
         darkModeButtonPosition = darkModeButton.transform.position;
         musicInformationPosition = musicInformation.transform.position;
@@ -193,6 +200,10 @@ public class MainMenu : MonoBehaviour
 #if PLATFORM_ANDROID //TODO set this up in a way that can handle various screen sizes instead of coding multiple paths
         cardBack.transform.LeanMoveY(cardBack.transform.position.y + Screen.height / 1.5f, menuTransitionTime).setEaseInOutBack();
         yield return new WaitForSeconds(0.25f);
+        cardBackRightButton.transform.LeanMoveY(cardBackRightButton.transform.position.y + Screen.height / 1.5f, menuTransitionTime).setEaseInOutBack();
+        yield return new WaitForSeconds(0.25f);
+        cardBackLeftButton.transform.LeanMoveY(cardBackLeftButton.transform.position.y + Screen.height / 1.5f, menuTransitionTime).setEaseInOutBack();
+        yield return new WaitForSeconds(0.25f);
         backButton.transform.LeanMoveY(backButton.transform.position.y + Screen.height / 1.5f, menuTransitionTime).setEaseInOutBack();
         yield return new WaitForSeconds(0.25f);
         musicInformation.transform.LeanMoveY(musicInformation.transform.position.y + Screen.height / 1.5f, menuTransitionTime).setEaseInOutBack();
@@ -203,6 +214,10 @@ public class MainMenu : MonoBehaviour
 
 #else 
         cardBack.transform.LeanMoveLocalY(cardBack.transform.position.y + Screen.height / 4, menuTransitionTime).setEaseInOutBack();
+        yield return new WaitForSeconds(0.25f);
+        cardBackRightButton.transform.LeanMoveLocalY(cardBackRightButton.transform.position.y + Screen.height / 4, menuTransitionTime).setEaseInOutBack();
+        yield return new WaitForSeconds(0.25f);
+        cardBackLeftButton.transform.LeanMoveLocalY(cardBackLeftButton.transform.position.y + Screen.height / 4, menuTransitionTime).setEaseInOutBack();
         yield return new WaitForSeconds(0.25f);
         backButton.transform.LeanMoveLocalY(backButton.transform.position.y + Screen.height / 4, menuTransitionTime).setEaseInOutBack();
         yield return new WaitForSeconds(0.25f);
@@ -219,6 +234,10 @@ public class MainMenu : MonoBehaviour
     {
         //Send options buttons off the screen
         cardBack.transform.LeanMoveY(cardBackPosition.y, menuTransitionTime).setEaseInOutBack();
+        yield return new WaitForSeconds(0.25f);
+        cardBackLeftButton.transform.LeanMoveY(cardBackLeftButtonPosition.y, menuTransitionTime).setEaseInOutBack();
+        yield return new WaitForSeconds(0.25f);
+        cardBackRightButton.transform.LeanMoveY(cardBackRightButtonPosition.y, menuTransitionTime).setEaseInOutBack();
         yield return new WaitForSeconds(0.25f);
         backButton.transform.LeanMoveY(backButtonPosition.y, menuTransitionTime).setEaseInOutBack();
         yield return new WaitForSeconds(0.25f);
@@ -292,5 +311,33 @@ public class MainMenu : MonoBehaviour
             optionsManager.GetComponent<Options>().darkMode = true;
             darkModeOptionText.text = "On";
         }
+    }
+
+    public void CycleCardBack(string direction)
+    {
+        if(direction == "right")
+        {
+            //Make the new card back and move it to it's hidden position
+            GameObject newCardBack = Instantiate(cardBack, cardBack.transform);
+            newCardBack.transform.SetParent(cardBack.transform.parent);
+            //newCardBack.GetComponent<CanvasGroup>().alpha = 0.0f; //TODO make this work rather than the card staying invisible after the function
+            newCardBack.transform.position = new Vector2(cardBack.transform.position.x - Screen.width / 4, cardBack.transform.position.y);
+            //Move the visible card out of the way and fade it out
+            cardBack.LeanMoveX(cardBack.transform.position.x + Screen.width / 4, 0.25f).setEaseInOutQuad();
+            cardBack.LeanAlpha(0.0f, 0.25f);
+            //Move the new card in and fade it in
+            newCardBack.LeanMoveX(cardBackPosition.x, 0.25f).setEaseInOutQuad();
+            newCardBack.LeanAlpha(1.0f, 0.25f);
+            //destroy the old card and make it reference the new card
+            Destroy(cardBack);
+            cardBack = newCardBack;
+
+        }
+        else if(direction == "left")
+        {
+            cardBack.LeanMoveX(cardBack.transform.position.x - Screen.width / 4, 0.25f).setEaseInOutQuad();
+        }
+        //move card to the right and fade out at the same time
+        //start bringing the next card into view and fade in
     }
 }
