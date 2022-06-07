@@ -22,6 +22,18 @@ public class DialogueManager : MonoBehaviour
     private Text extraButtonText;
     private bool canPromptBeClosed = true;
 
+    void Update()
+    {
+        if (Application.platform == RuntimePlatform.Android)
+        {
+            //TODO make a global solution to pressing the backbutton
+            if (Input.GetKey(KeyCode.Escape))
+            {
+                QuitGamePrompt();
+            }
+        }
+    }
+
     private bool CreateDialogue()
     {
         if (prompt != null) { Destroy(prompt); dialogueOverlay.gameObject.SetActive(false); return false; }

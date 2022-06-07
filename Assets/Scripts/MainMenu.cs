@@ -84,6 +84,15 @@ public class MainMenu : MonoBehaviour
         musicInformationText = musicInformation.transform.GetChild(0).GetComponent<TextMeshProUGUI>();
     }
 
+    void Update()
+    {
+        if (Application.platform == RuntimePlatform.Android)
+        {
+            if (Input.GetKey(KeyCode.Escape))
+                QuitGame();
+            }
+        }
+
     public void QuitGame()
     {
     #if UNITY_EDITOR
