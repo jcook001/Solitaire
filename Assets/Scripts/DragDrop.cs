@@ -52,12 +52,9 @@ public class DragDrop : MonoBehaviour, IPointerClickHandler
     public void OnPointerClick(PointerEventData pointerEventData)
     {
         int clickCount = pointerEventData.clickCount;
+        int tapCount = Input.GetTouch(0).tapCount;
 
-        if (clickCount != 2)
-        {
-            return;
-        }
-        else
+        if (clickCount == 2 || tapCount == 2)
         {
             StartCoroutine(DoubleClick());
         }
@@ -249,6 +246,7 @@ public class DragDrop : MonoBehaviour, IPointerClickHandler
         yield return null;
     }
 
+    //This is called by a card. See the card prefab in Unity for more info
     public void StartDragging() //TODO look into better click or drag detection? Test time mouse is held
     {
         if (Time.time - lastEndDragTime < 0.1f) { return; } //Prevent unwanted doubleclick functionality
