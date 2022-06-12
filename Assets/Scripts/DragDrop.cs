@@ -51,12 +51,23 @@ public class DragDrop : MonoBehaviour, IPointerClickHandler
     //Detect if a click occurs
     public void OnPointerClick(PointerEventData pointerEventData)
     {
-        int clickCount = pointerEventData.clickCount;
-        int tapCount = Input.GetTouch(0).tapCount;
-
-        if (clickCount == 2 || tapCount == 2)
+        if (Application.platform == RuntimePlatform.Android)
         {
-            StartCoroutine(DoubleClick());
+            int tapCount = Input.GetTouch(0).tapCount;
+
+            if (tapCount == 2)
+            {
+                StartCoroutine(DoubleClick());
+            }
+        }
+        else
+        {
+            int clickCount = pointerEventData.clickCount;
+
+            if (clickCount == 2)
+            {
+                StartCoroutine(DoubleClick());
+            }
         }
     }
 
@@ -508,11 +519,23 @@ public class DragDrop : MonoBehaviour, IPointerClickHandler
 
     public void SetPositionStaggeredVertical(GameObject newParent)
     {
-        transform.SetParent(newParent.transform, true);
-        transform.position = new Vector3(
-            newParent.transform.position.x,
-            newParent.transform.position.y - solitaire.yOffsetIncrement,
-            newParent.transform.position.z + solitaire.zOffsetIncrement);
+        if(newParent.CompareTag("Face Down Play Area"))
+        {
+            transform.SetParent(newParent.transform, true);
+            transform.position = new Vector3(
+                newParent.transform.position.x,
+                newParent.transform.position.y - solitaire.yOffsetIncrementFaceDown,
+                newParent.transform.position.z + solitaire.zOffsetIncrement);
+        }
+        else
+        {
+            transform.SetParent(newParent.transform, true);
+            transform.position = new Vector3(
+                newParent.transform.position.x,
+                newParent.transform.position.y - solitaire.yOffsetIncrement,
+                newParent.transform.position.z + solitaire.zOffsetIncrement);
+        }
+
     }
 
     public void SetPositionStaggeredHorizontal(GameObject newParent)

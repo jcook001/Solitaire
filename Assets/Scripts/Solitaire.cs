@@ -44,6 +44,7 @@ public class Solitaire : MonoBehaviour
 
     public float xOffsetIncrement;
     public float yOffsetIncrement;
+    public float yOffsetIncrementFaceDown;
     public float zOffsetIncrement = 1.0f;
 
     public DialogueManager dialogueManager;
@@ -55,6 +56,7 @@ public class Solitaire : MonoBehaviour
     public float cardMoveSpeed = 0.25f;
     public int winAnimationCardForceMax = 16000;
     public int winAnimationCardForceMin = 12000;
+    public BoxCollider2D floor;
 
     public static bool canUndo = false;
     public static string lastAction;
@@ -179,7 +181,7 @@ public class Solitaire : MonoBehaviour
                 }
 
                 previouscard = newCard;
-                yOffset += yOffsetIncrement;
+                yOffset += yOffsetIncrementFaceDown;
                 zOffset += zOffsetIncrement;
 
                 yield return new WaitForSeconds(0.2f);
@@ -378,6 +380,8 @@ public class Solitaire : MonoBehaviour
 
     private IEnumerator GameWinAnimation()
     {
+        floor.enabled = true;
+
         mainCamera.clearFlags = CameraClearFlags.Nothing; //Get that sweet sweet cascading effect
         
         List<GameObject> cardsInPlay = new List<GameObject>();
