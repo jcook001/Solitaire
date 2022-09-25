@@ -616,4 +616,9 @@ public class Solitaire : MonoBehaviour
     {
         StopAllCoroutines();
     }
+
+    public void SaveGame()
+    {
+        SaveSystem.SaveGame(this);
+    }
 }
