@@ -11,6 +11,7 @@ public class Options : MonoBehaviour
     public bool darkMode = true;
     public Sprite cardBackDefault;
     private Toggle activeToggle;
+    public GameState gameState;
 
     public static bool canPlaceAnyCardInEmptySpace = false; //Set by the Main Menu script
 

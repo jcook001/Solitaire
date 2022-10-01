@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [System.Serializable]
-public class GameData
+public class GameState : MonoBehaviour
 {
     public string[] deck;
     public string[] discardpile;
@@ -20,8 +20,8 @@ public class GameData
     public string[] goalArea2;
     public string[] goalArea3;
 
-    public GameData (Solitaire solitaire)
+    public string SaveToString()
     {
-
+        return JsonUtility.ToJson(this);
     }
 }
