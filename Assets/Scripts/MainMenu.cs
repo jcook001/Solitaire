@@ -37,6 +37,9 @@ public class MainMenu : MonoBehaviour
     public GameObject musicInformation;
     private Vector2 musicInformationPosition;
     public TextMeshProUGUI musicInformationText;
+    public GameObject audioPauseButton;
+    public Sprite audioPlayIcon;
+    public Sprite audioPauseIcon;
 
     private bool mainMenuIsActive = true;
     private float menuTransitionTime = 0.5f;
@@ -44,6 +47,7 @@ public class MainMenu : MonoBehaviour
     public GameObject optionsManager;
     public GameObject audioManagerGameObject;
     private AudioManager audioManager;
+    private AudioSource audioSource;
     public Animator transition;
     public Animation menuClose;
 
@@ -67,6 +71,7 @@ public class MainMenu : MonoBehaviour
             audioManagerGameObject = Instantiate(audioManagerGameObject);
         }
         audioManager = audioManagerGameObject.GetComponent<AudioManager>();
+        audioSource = audioManager.GetComponent<AudioSource>();
 
         //Save the start position of the menu buttons
         playButtonPosition = playButton.transform.position;
@@ -277,16 +282,31 @@ public class MainMenu : MonoBehaviour
     public void AudioPreviousTrack()
     {
         audioManager.PreviousTrack();
+        UpdateAudioIcon();
     }
 
     public void AudioNextTrack()
     {
         audioManager.NextTrack();
+        UpdateAudioIcon();
     }
 
     public void AudioPlayPauseTrack()
     {
         audioManager.PlayPause();
+        UpdateAudioIcon();
+    }
+
+    private void UpdateAudioIcon()
+    {
+        if (audioSource.isPlaying)
+        {
+            audioPauseButton.GetComponent<Image>().sprite = audioPauseIcon;
+        }
+        else
+        {
+            audioPauseButton.GetComponent<Image>().sprite = audioPlayIcon;
+        }
     }
 
     public void UpdateTrackName(string trackName)

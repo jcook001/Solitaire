@@ -8774,6 +8774,9 @@ MonoBehaviour:
   darkModeOptionText: {fileID: 1546399741}
   musicInformation: {fileID: 962605242}
   musicInformationText: {fileID: 1225952207}
+  audioPauseButton: {fileID: 353217739}
+  audioPlayIcon: {fileID: 21300000, guid: 92dddb63c7d1e1d41af2c95488f95af2, type: 3}
+  audioPauseIcon: {fileID: 21300000, guid: 58980f40e9756404cbf506e74fc625a8, type: 3}
   optionsManager: {fileID: 5246988304836783048, guid: b541d45d522d53d4783370e139d39d68,
     type: 3}
   audioManagerGameObject: {fileID: 5837029977407335921, guid: 27c22655cba139b479e4c3ae3984e823,
