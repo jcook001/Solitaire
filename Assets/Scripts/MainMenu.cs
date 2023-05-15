@@ -24,6 +24,8 @@ public class MainMenu : MonoBehaviour
     private Vector2 cardBackPosition;
     public CanvasGroup cardBackCanvas;
     public Sprite[] cardBackChoices;
+    private int activeCardBackChoice = 0;
+    private bool cardBackIsMoving = false;
     public GameObject cardBackRightButton;
     private Vector2 cardBackRightButtonPosition;
     public GameObject cardBackLeftButton;
@@ -344,29 +346,90 @@ public class MainMenu : MonoBehaviour
 
     public void CycleCardBack(string direction)
     {
+        if (cardBackIsMoving)
+        {
+            return;
+        }
         if(direction == "right")
         {
+            //get the array position for the next card to show
+            if (activeCardBackChoice + 1 > cardBackChoices.Length - 1 )
+            {
+                activeCardBackChoice = 0;
+            }
+            else
+            {
+                activeCardBackChoice += 1;
+            }
+
             //Make the new card back and move it to it's hidden position
             GameObject newCardBack = Instantiate(cardBack, cardBack.transform);
+            newCardBack.GetComponent<Image>().sprite = cardBackChoices[activeCardBackChoice];
             newCardBack.transform.SetParent(cardBack.transform.parent);
-            //newCardBack.GetComponent<CanvasGroup>().alpha = 0.0f; //TODO make this work rather than the card staying invisible after the function
             newCardBack.transform.position = new Vector2(cardBack.transform.position.x - Screen.width / 4, cardBack.transform.position.y);
-            //Move the visible card out of the way and fade it out
-            cardBack.LeanMoveX(cardBack.transform.position.x + Screen.width / 4, 0.25f).setEaseInOutQuad();
-            cardBack.LeanAlpha(0.0f, 0.25f);
-            //Move the new card in and fade it in
-            newCardBack.LeanMoveX(cardBackPosition.x, 0.25f).setEaseInOutQuad();
-            newCardBack.LeanAlpha(1.0f, 0.25f);
-            //destroy the old card and make it reference the new card
-            Destroy(cardBack);
-            cardBack = newCardBack;
+            StartCoroutine(MoveCardBacks("right", cardBack, newCardBack));
 
         }
         else if(direction == "left")
         {
+            //get the array position for the next card to show
+            if (activeCardBackChoice - 1 < 0)
+            {
+                activeCardBackChoice = cardBackChoices.Length - 1;
+            }
+            else
+            {
+                activeCardBackChoice -= 1;
+            }
             cardBack.LeanMoveX(cardBack.transform.position.x - Screen.width / 4, 0.25f).setEaseInOutQuad();
+            
+            //Make the new card back and move it to it's hidden position
+            GameObject newCardBack = Instantiate(cardBack, cardBack.transform);
+            newCardBack.GetComponent<Image>().sprite = cardBackChoices[activeCardBackChoice];
+            newCardBack.transform.SetParent(cardBack.transform.parent);
+            newCardBack.transform.position = new Vector2(cardBack.transform.position.x + Screen.width / 4, cardBack.transform.position.y);
+            newCardBack.GetComponent<Image>().CrossFadeAlpha(0, 0.01f, true);
+            StartCoroutine(MoveCardBacks("left", cardBack, newCardBack));
         }
         //move card to the right and fade out at the same time
         //start bringing the next card into view and fade in
+    }
+
+    private IEnumerator MoveCardBacks(string direction, GameObject activeCard, GameObject newCard)
+    {
+        switch (direction)
+        {
+            case "right":
+                cardBackIsMoving = true;
+                //Move the visible card out of the way and fade it out
+                cardBack.LeanMoveX(cardBack.transform.position.x + Screen.width / 4, 0.25f).setEaseInOutQuad();
+                cardBack.LeanAlpha(0.0f, 0.25f);
+                //Move the new card in and fade it in
+                newCard.LeanMoveX(cardBackPosition.x, 0.25f).setEaseInOutQuad();
+                cardBack.GetComponent<Image>().CrossFadeAlpha(0, 0.25f, true);
+                yield return new WaitForSeconds(0.25f);
+                //destroy the old card and make it reference the new card
+                Destroy(cardBack);
+                cardBack = newCard;
+                cardBackIsMoving = false;
+                break;
+
+            case "left":
+                cardBackIsMoving = true;
+                //Move the visible card out of the way and fade it out
+                cardBack.LeanMoveX(cardBack.transform.position.x - Screen.width / 4, 0.25f).setEaseInOutQuad();
+                cardBack.LeanAlpha(0.0f, 0.25f);
+                //Move the new card in and fade it in
+                newCard.LeanMoveX(cardBackPosition.x, 0.25f).setEaseInOutQuad();
+                newCard.LeanAlpha(1.0f, 0.25f);
+                cardBack.GetComponent<Image>().CrossFadeAlpha(0, 0.25f, true);
+                yield return new WaitForSeconds(0.25f);
+                //destroy the old card and make it reference the new card
+                Destroy(cardBack);
+                cardBack = newCard;
+                cardBackIsMoving = false;
+                break;
+        }
+        yield return null;
     }
 }
