@@ -393,6 +393,7 @@ public class MainMenu : MonoBehaviour
         }
         //move card to the right and fade out at the same time
         //start bringing the next card into view and fade in
+        optionsManager.GetComponent<Options>().NewCardBackSelect(cardBackChoices[activeCardBackChoice]);
     }
 
     private IEnumerator MoveCardBacks(string direction, GameObject activeCard, GameObject newCard)
@@ -403,10 +404,12 @@ public class MainMenu : MonoBehaviour
                 cardBackIsMoving = true;
                 //Move the visible card out of the way and fade it out
                 cardBack.LeanMoveX(cardBack.transform.position.x + Screen.width / 4, 0.25f).setEaseInOutQuad();
-                cardBack.LeanAlpha(0.0f, 0.25f);
-                //Move the new card in and fade it in
-                newCard.LeanMoveX(cardBackPosition.x, 0.25f).setEaseInOutQuad();
                 cardBack.GetComponent<Image>().CrossFadeAlpha(0, 0.25f, true);
+                //Move the new card in and fade it in
+                newCard.GetComponent<Image>().CrossFadeAlpha(0, 0, true);
+                yield return new WaitForEndOfFrame();
+                newCard.LeanMoveX(cardBackPosition.x, 0.25f).setEaseInOutQuad();
+                newCard.GetComponent<Image>().CrossFadeAlpha(1, 0.25f, true);
                 yield return new WaitForSeconds(0.25f);
                 //destroy the old card and make it reference the new card
                 Destroy(cardBack);
@@ -418,11 +421,12 @@ public class MainMenu : MonoBehaviour
                 cardBackIsMoving = true;
                 //Move the visible card out of the way and fade it out
                 cardBack.LeanMoveX(cardBack.transform.position.x - Screen.width / 4, 0.25f).setEaseInOutQuad();
-                cardBack.LeanAlpha(0.0f, 0.25f);
-                //Move the new card in and fade it in
-                newCard.LeanMoveX(cardBackPosition.x, 0.25f).setEaseInOutQuad();
-                newCard.LeanAlpha(1.0f, 0.25f);
                 cardBack.GetComponent<Image>().CrossFadeAlpha(0, 0.25f, true);
+                //Move the new card in and fade it in
+                newCard.GetComponent<Image>().CrossFadeAlpha(0, 0, true);
+                yield return new WaitForEndOfFrame();
+                newCard.LeanMoveX(cardBackPosition.x, 0.25f).setEaseInOutQuad();
+                newCard.GetComponent<Image>().CrossFadeAlpha(1, 0.25f, true);
                 yield return new WaitForSeconds(0.25f);
                 //destroy the old card and make it reference the new card
                 Destroy(cardBack);

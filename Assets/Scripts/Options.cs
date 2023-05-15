@@ -42,6 +42,11 @@ public class Options : MonoBehaviour
         cardBackChoice = activeToggle.transform.parent.GetComponent<Image>().sprite;
     }
 
+    public void NewCardBackSelect(Sprite card)
+    {
+        cardBackChoice = card;
+    }
+
     public void DarkModeOn()
     {
         darkMode = true;
@@ -51,4 +56,5 @@ public class Options : MonoBehaviour
     {
         darkMode = false;
     }
+
 }
